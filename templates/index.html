@@ -1,0 +1,56 @@
+{% extends 'common.html' %}
+{% load static %}
+
+{% block pages %}
+<div class="page-header header-filter clear-filter" data-parallax="true" style="background: #0d1b48!important; transform: translate3d(0px, 0px, 0px);">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 ml-auto mr-auto">
+          <div class="brand">
+            <h2 class="font-weight-bold mb-0 pb-0">Start Your Test
+            </h2>
+            <div class="bootstrap-tagsinput rose-badge"><span class="tag badge"> Note <span data-role="remove"></span></span>  <span class="bmd-form-group"></span>
+            <ul><li>To attend Quiz you should login the site</li>
+            <li>Only one attempt for  one user</li>
+            </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<figure class="position-absolute bottom-0 left-0 w-100 d-none d-md-block mb-n2"><svg  style="      background: #0d1b48;  fill: #fff;" class="fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3000 185.4"><path d="M3000,0v185.4H0V0c496.4,115.6,996.4,173.4,1500,173.4S2503.6,115.6,3000,0z"></path></svg></figure>
+
+  </div>
+<div class="main main-raised">
+    <div class="container">
+      <div class="section text-center">
+          <div class="row m-auto justify-content-center">
+              {% for x in data %}
+              <div class="col-md-4">
+                  <div class="card">
+                  <div class="card-body ">
+                    <h6 class="card-category text-danger">
+                      <i class="material-icons">trending_up</i> About
+                    </h6>
+                    <h4 class="card-title">
+                      <a href="{% url 'quiz' x.id x.name|slugify %}">{{ x.name }}</a>
+                    </h4>
+                  </div>
+ <div class="card-footer text-center justify-content-center">
+     <a   href="{% url 'quiz' x.id x.name|slugify %}" class="btn btn-info btn-round">Start Quiz</a>
+{#      <form method="POST" action="{% url 'quiz' x.name|slugify %}">#}
+{#          {% csrf_token %}#}
+{#                        <input type="hidden" name="id" value="{{ x.id }}">#}
+{#          <button type="submit" class="btn btn-info btn-round">Start Quiz</button>#}
+{#      </form>#}
+                  </div>
+                </div>
+              </div>
+
+              {% endfor %}
+          </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

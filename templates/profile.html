@@ -1,0 +1,80 @@
+{% extends 'common.html' %}
+{% load static %}
+{% block pages %}
+
+    <style>
+    .navbar-brand{
+        color: #000 !important;
+    }
+    </style>
+<div class="section section-lg bg-soft">
+   <div class="container">
+      <div class="row pt-5 pt-md-0">
+<div class="col-12 col-md-4 col-lg-3 ">
+        <div class="card card-pricing">
+                  <div class="card-body ">
+                    <div class="icon icon-info">
+                      <i class="material-icons">people</i>
+                    </div>
+                    <h3 class="card-title mb-0">{{ user.username }}</h3>
+                      <span><i class="material-icons text-rose" style="font-size: 14px">mail</i></span>
+                      {{ user.email }}
+                    <ul>
+                      <li>
+                      </li>
+                      <li><button class="btn btn-rose btn-fab btn-round btn-sm">
+                <i class="material-icons">favorite</i>
+              </button><h6>Welcome</h6>  </li>
+
+                    </ul>
+                  </div>
+                </div>
+         </div>
+
+
+
+
+<div class="col-12 col-md-8 col-lg-8 mx-auto">
+    {% if data %}
+        {% for x in data %}
+         <div class="card p-3"
+            {% if forloop.counter|divisibleby:"2" %}
+                style="border-top:5px solid #ea296b"
+              {% else %}
+              style="border-top:5px solid #00bcd4"
+                {% endif %}
+        >
+         <div class="row">
+         <div class="col-lg-5">
+             <h5 class="font-weight-bold"><span class="text-info">Quiz</span>  : {{ x.question.get_queryset.0.quiz.name }}</h5>
+            </div>
+             <div class="col-lg-3 col-md-4 col-sm-4 ">
+                <h5 class="font-weight-bold"><span class="text-rose">Result</span> : {{ x.result }}
+                {% if x.result <= 6 %}
+                        <span class="font-weight-bold text-rose" style="font-size: 14px">( Fail )</span>
+                        {% else %}
+                                               <span class="font-weight-bold text-info" style="font-size: 14px">( Pass )</span>
+
+                        {% endif %}
+
+                </h5>
+            </div>
+            <div class="col-lg-4  col-md-8 col-sm-8 m-auto">
+                <p class="font-weight-bold">Data:{{ x.date }}</p>
+            </div>
+             <div class="col-lg-4">
+                 <a style="font-size: 13px" href="{% url 'result' x.question.get_queryset.0.quiz.id x.question.get_queryset.0.quiz|slugify  %}" class="text-primary font-weight-bold"><i class="material-icons" style="font-size: 13px">remove_red_eye</i>  See Result</a>
+             </div>
+        </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+      </div>
+   </div>
+</div>
+
+</div>
+
+    {% endblock %}
+
+

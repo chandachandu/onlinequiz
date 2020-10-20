@@ -1,0 +1,345 @@
+{% extends 'common.html' %}
+{% block pages %}
+    <style>
+    .navbar-brand{
+        color: #000 !important;
+    }
+    </style>
+<div class="section section-lg bg-soft">
+   <div class="container">
+      <div class="row pt-5 pt-md-0">
+<div class="col-12 col-md-4 col-lg-3 d-none d-lg-block">
+        <div class="card card-pricing">
+                  <div class="card-body ">
+                    <div class="icon icon-info">
+                      <i class="material-icons">people</i>
+                    </div>
+                    <h3 class="card-title mb-0">{{ user.username }}</h3>
+                      <span><i class="material-icons text-rose" style="font-size: 14px">mail</i></span>
+                      {{ user.email }}
+                    <ul>
+                      <li>
+                      </li>
+                      <li><button class="btn btn-rose btn-fab btn-round btn-sm">
+                <i class="material-icons">favorite</i>
+              </button><h6>Welcome</h6>  </li>
+
+                    </ul>
+                  </div>
+                </div>
+         </div>
+
+
+
+
+<div class="col-12 col-md-8 col-lg-8 mx-auto">
+    {% if pages %}
+ <div class="card p-5">
+     <form id="questionform"  method="POST">
+    <span id="question_id" class="btn btn-danger btn-sm  px-2 py-1 font-weight-bold"></span> <span class="font-weight-bold d-inline-block" id="question_data"> </span>
+     <div id="option_list">
+            <div class="form-check">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="radio" name="answer" id="option1" >
+                    <p id="optionval1"></p>
+
+                  <span class="circle">
+                    <span class="check"></span>
+                  </span>
+                </label>
+              </div>
+          <div class="form-check">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="radio" name="answer" id="option2" >
+<p id="optionval2"></p>
+                  <span class="circle">
+                    <span class="check"></span>
+                  </span>
+                </label>
+              </div>
+          <div class="form-check">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="radio" name="answer" id="option3" >
+<p id="optionval3"></p>
+                  <span class="circle">
+                    <span class="check"></span>
+                  </span>
+                </label>
+              </div>
+          <div class="form-check">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="radio" name="answer" id="option4" >
+<p id="optionval4"></p>
+                  <span class="circle">
+                    <span class="check"></span>
+                  </span>
+                </label>
+              </div>
+
+
+     </div>
+         </form>
+</div>
+        {% elif result %}
+            <div class="card p-5">
+                <table>
+                    <thead>
+
+
+                    </thead>
+
+                <thead>
+                <tr>
+                    {% for x in result.question.get_queryset %}
+                    <th><h5 class="font-weight-bold"><span class="text-info">Quiz</span>  : {{ x.quiz }}</h5></th>
+                    {% endfor %}
+                    <th  class="text-right"><h5 class="font-weight-bold"><span class="text-rose">Result</span> : {{ result.result }}
+                    {% if result.result <= 6 %}
+                        <span class="font-weight-bold text-rose" style="font-size: 14px">( Fail )</span>
+                        {% else %}
+                                               <span class="font-weight-bold text-info" style="font-size: 14px">( Pass )</span>
+
+                        {% endif %}
+                    </h5></th>
+                    <th class="text-right"><p class="font-weight-bold">Data:{{ result.date }}</p></th>
+                </tr>
+                </thead>
+                </table>
+
+                {% for ans in qdata %}
+                    <h6 class="font-weight-bold">{{ forloop.counter }}. {{ ans.question }}</h6>
+
+                        <p class="">A. {{ ans.option1 }}</p>
+                    <p class="">B. {{ ans.option2 }}</p>
+                    <p class="">C. {{ ans.option3 }}</p>
+                    <p class="">D. {{ ans.option4 }}</p>
+
+
+                    {% if forloop.counter == 1  %}
+                        {% if result.question.get_queryset.0.q1 == ans.answer %}
+<p class="font-weight-bold text-info">
+                    Your Answer is: {{ result.question.get_queryset.0.q1 }}
+                                        </p>
+                            {% else %}
+                            <p class="font-weight-bold text-rose">
+                    Your Answer is: {{ result.question.get_queryset.0.q1 }}
+                                        </p>
+                            {% endif %}
+
+                        {% elif forloop.counter == 2 %}
+                         {% if result.question.get_queryset.0.q2 == ans.answer %}
+                        <p class="font-weight-bold text-info">
+                    Your Answer is: {{ result.question.get_queryset.0.q2 }}
+                                        </p>
+                            {% else %}
+                            <p class="font-weight-bold text-rose">
+                    Your Answer is: {{ result.question.get_queryset.0.q2 }}
+                                        </p>
+                            {% endif %}
+
+ {% elif forloop.counter == 3 %}
+                         {% if result.question.get_queryset.0.q3 == ans.answer %}
+                        <p class="font-weight-bold text-info">
+                    Your Answer is: {{ result.question.get_queryset.0.q3 }}
+                                        </p>
+                            {% else %}
+                            <p class="font-weight-bold text-rose">
+                    Your Answer is: {{ result.question.get_queryset.0.q3 }}
+                                        </p>
+                            {% endif %}
+ {% elif forloop.counter == 4 %}
+                         {% if result.question.get_queryset.0.q4 == ans.answer %}
+                        <p class="font-weight-bold text-info">
+                    Your Answer is: {{ result.question.get_queryset.0.q4 }}
+                                        </p>
+                            {% else %}
+                            <p class="font-weight-bold text-rose">
+                    Your Answer is: {{ result.question.get_queryset.0.q4 }}
+                                        </p>
+                            {% endif %}
+ {% elif forloop.counter == 5 %}
+                         {% if result.question.get_queryset.0.q5 == ans.answer %}
+                        <p class="font-weight-bold text-info">
+                    Your Answer is: {{ result.question.get_queryset.0.q5 }}
+                                        </p>
+                            {% else %}
+                            <p class="font-weight-bold text-rose">
+                    Your Answer is: {{ result.question.get_queryset.0.q5 }}
+                                        </p>
+                            {% endif %}
+             {% elif forloop.counter == 6 %}
+                         {% if result.question.get_queryset.0.q6 == ans.answer %}
+                        <p class="font-weight-bold text-info">
+                    Your Answer is: {{ result.question.get_queryset.0.q6 }}
+                                        </p>
+                            {% else %}
+                            <p class="font-weight-bold text-rose">
+                    Your Answer is: {{ result.question.get_queryset.0.q6 }}
+                                        </p>
+                            {% endif %}
+ {% elif forloop.counter == 7 %}
+                         {% if result.question.get_queryset.0.q7 == ans.answer %}
+                        <p class="font-weight-bold text-info">
+                    Your Answer is: {{ result.question.get_queryset.0.q7 }}
+                                        </p>
+                            {% else %}
+                            <p class="font-weight-bold text-rose">
+                    Your Answer is: {{ result.question.get_queryset.0.q7 }}
+                                        </p>
+                            {% endif %}
+                       {% elif forloop.counter == 8 %}
+                         {% if result.question.get_queryset.0.q8 == ans.answer %}
+                        <p class="font-weight-bold text-info">
+                    Your Answer is: {{ result.question.get_queryset.0.q8 }}
+                                        </p>
+                            {% else %}
+                            <p class="font-weight-bold text-rose">
+                    Your Answer is: {{ result.question.get_queryset.0.q8 }}
+                                        </p>
+                            {% endif %}
+                         {% elif forloop.counter == 9 %}
+                         {% if result.question.get_queryset.0.q9 == ans.answer %}
+                        <p class="font-weight-bold text-info">
+                    Your Answer is: {{ result.question.get_queryset.0.q9 }}
+                                        </p>
+                            {% else %}
+                            <p class="font-weight-bold text-rose">
+                    Your Answer is: {{ result.question.get_queryset.0.q9 }}
+                                        </p>
+                            {% endif %}
+                         {% elif forloop.counter == 10 %}
+                         {% if result.question.get_queryset.0.q10 == ans.answer %}
+                        <p class="font-weight-bold text-info">
+                    Your Answer is: {{ result.question.get_queryset.0.q10 }}
+                                        </p>
+                            {% else %}
+                            <p class="font-weight-bold text-rose">
+                    Your Answer is: {{ result.question.get_queryset.0.q10 }}
+                                        </p>
+                            {% endif %}
+
+                    {% else %}
+                        Not Answerd
+                    {% endif %}
+
+                        {% for x,y in answers.items %}
+
+                                {% if x|floatformat:"0" == ans.id|floatformat:"0" %}
+                                    {% if y|floatformat:"0" == ans.answer %}
+                                        <p class="font-weight-bold text-info">
+                    Your Answer is:{{ y }}
+                                        </p>
+                                     {% else %}
+                                        <p class="font-weight-bold text-rose">
+                    Your Answer is:{{ y }}
+                                        </p>
+                                     {% endif %}
+                                {% endif %}
+                        {% endfor %}
+
+                    <p class="font-weight-bold text-success">
+                    Actual Anwer is :{{ ans.answer }}
+                    </p>
+                  {% endfor %}
+            </div>
+            {% else %}
+          <div class="card p-5">
+                <div class="card-pricing">
+                    <div class="icon icon-info">
+                      <i class="material-icons">check</i>
+                    </div>
+                </div>
+            <h3 class="text-center font-weight-bold">You Already Submitted this Quiz</h3>
+        <button onclick="window.location.href='result'" class="btn   btn-rose btn-raised"> Click Here</button>
+        </div>
+    {% endif %}
+      </div>
+   </div>
+</div>
+
+</div>
+  <script>
+      $(document).ready(function() {
+            pageid=1;
+            var x=questiondata(pageid);
+            var data;
+          function questiondata(page_n) {
+              $("input[name=answer]").removeAttr('disabled');
+              $("input[name=answer]").prop("checked",false);
+                $('.errortag').remove();
+
+                $.ajax({
+                type: "POST",
+                url: window.location.href, // name of url
+                data : {
+                page_n : page_n, //page_number
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+            },
+            success: function (resp) {
+                //loop
+                data=resp.results[0]
+                $('#question_id').text(page_n)
+                $('#question_data').text(data.question)
+                $('#option1').val(data.option1)
+                $('#optionval1').text(data.option1)
+                $('#option2').val(data.option2)
+                $('#optionval2').text(data.option2)
+                $('#option3').val(data.option3)
+                $('#optionval3').text(data.option3)
+                $('#option4').val(data.option4)
+                $('#optionval4').text(data.option4)
+                console.log(data.id);
+            },
+            error: function () {}
+        });
+            }
+
+
+         $("input[name=answer]").click(function () {
+             $('.errortag').remove();
+                url=window.location.href+"checkresult/";
+                var answer=$(this).val();
+                $('.form-check').addClass('disabled');
+                $("input[name=answer]").attr('disabled','disabled');
+                $(this).removeAttr('disabled','disabled');
+                $.ajax({
+                    url:url,
+                    type:'POST',
+                    data:{'qid':data.id,'answer':answer},
+                    dataType: "json",
+                    success : function (data){
+                        if(data['error']){
+                            $('#option_list').after("<p class='text-rose font-weight-bold errortag'>"+data['error']+"</p>");
+
+                        }
+                        if(data['success']){
+                            $('#option_list').after("<p class='text-info font-weight-bold errortag'>"+data['success']+"</p>");
+
+                        }
+
+                        pageid=pageid+1;
+                        if (pageid > {{ pages }}){
+                            window.location.href='save';
+                        }else{
+                            setTimeout(function() {
+
+                                t=questiondata(pageid);
+                            }, 2000);
+                        }
+
+
+
+                    },
+                    failure : function (data) {
+                        alert('Got an error');
+                    }
+                })
+          });
+
+
+
+
+
+      });
+  </script>
+    {% endblock %}
